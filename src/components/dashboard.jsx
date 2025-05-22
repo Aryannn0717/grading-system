@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { supabase } from "../supabase/supabaseClient";
 import { Menu, X } from "lucide-react";
-import RecordAttendance from "../components/RecordAttendance";
-import ManageSubjects from "../components/ManageSubjects";
-import ViewReports from "../components/ViewReports";
+import RecordAttendance from "./RecordAttendance";
+import ManageSubjects from "./ManageSubjects";
+import ManageStudents from "./ManageStudent"; // Add this import
+import ViewReports from "./ViewReports";
+import GradeManagement from "./GradeManagement";
 
 export default function Dashboard() {
   const [active, setActive] = useState("attendance");
@@ -12,7 +14,9 @@ export default function Dashboard() {
   const navItems = [
     { key: "attendance", label: "📌 Record Attendance" },
     { key: "subjects", label: "📘 Manage Subjects & Grades" },
+    { key: "students", label: "👥 Manage Students" }, // Make sure this matches
     { key: "reports", label: "📊 View Reports" },
+    { key: "grades", label: "📝 Grade Management" },
   ];
 
   const handleLogout = async () => {
@@ -20,7 +24,7 @@ export default function Dashboard() {
     if (error) {
       alert("Error signing out:", error.message);
     } else {
-      window.location.reload(); // or navigate to login
+      window.location.reload();
     }
   };
 
@@ -73,7 +77,9 @@ export default function Dashboard() {
       <main className="flex-1 p-6">
         {active === "attendance" && <RecordAttendance />}
         {active === "subjects" && <ManageSubjects />}
+        {active === "students" && <ManageStudents />} {/* Now properly defined */}
         {active === "reports" && <ViewReports />}
+        {active === "grades" && <GradeManagement />}
       </main>
     </div>
   );
